@@ -12,7 +12,7 @@ class Views
     private string $head;
     private string $header;
     private string $footer;
-    private string $flashMsg;
+    private string $login;
 
 
     public function setHtml(string $html): self
@@ -42,6 +42,7 @@ class Views
         $this->footer = Config::TEMPLATES . $footer;
         return $this;
     }
+
 
 
     public function render(array $vars, ?string $head = null,  ?string $header = null, ?string $html = null, ?string $footer = null)
