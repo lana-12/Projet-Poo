@@ -1,0 +1,15 @@
+{
+    "name": "giaco/projet-poo",
+    "autoload": {
+        "psr-4": {
+            "Giaco\\ProjetPoo\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Virginie Giacometti",
+            "email": "lana.12@wanadoo.fr"
+        }
+    ],
+    "require": {}
+}

@@ -1,0 +1,11 @@
+body {
+    background-color: #bebec6;
+    height: 100vh;
+}
+
+.showBook {   
+    margin: auto;
+    border: solid #fff 2px;
+    padding: 40px;
+}
+
