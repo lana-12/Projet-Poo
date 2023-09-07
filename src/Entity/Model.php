@@ -43,12 +43,12 @@ class Model  {
         // $db = DataBase::getInstance();
         //return par order By Asc
         if(!is_null($limit)) {
-            $sql = "select * from " . self::getEntityName() . " ORDER BY title LIMIT $limit OFFSET $offset";
+            $sql = "select * from " . self::getEntityName() . " ORDER BY name LIMIT $limit OFFSET $offset";
             return self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
 
         }
         //return all books par ordre alphabétique
-        $sql = "select * from " . self::getEntityName() ." ORDER BY title";
+        $sql = "select * from " . self::getEntityName() ." ORDER BY name";
         return self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
     }
 
@@ -66,7 +66,7 @@ class Model  {
     {
         $sql = "select * from " . self::getEntityName() . " where email = ?";
         $result =  self::Execute($sql, [$email])->fetchAll(PDO::FETCH_CLASS, self::getClassName());
-        return $result;
+        return $result[0];
 
     }
 
