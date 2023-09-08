@@ -4,13 +4,13 @@ namespace Giaco\ProjetPoo\Entity;
 
 use PDO;
 use Giaco\ProjetPoo\Kernel\DataBase;
-
+use Giaco\ProjetPoo\Utils\MyFunction;
 
 class Model  {
 
     public static $className;
 
-    private static function getEntityName()
+    protected static function getEntityName()
     {
         $classname = static::class;
         $tab = explode('\\', $classname);
@@ -18,13 +18,13 @@ class Model  {
         return $entity;
     }
 
-    private static function getClassName()
+    protected static function getClassName()
     {
         return static::class;
     }
 
 
-private static function Execute($sql, array $attributes =null)
+    protected static function Execute($sql, array $attributes =null)
     {
         $db = DataBase::getInstance();
 
@@ -43,12 +43,12 @@ private static function Execute($sql, array $attributes =null)
         // $db = DataBase::getInstance();
         //return par order By Asc
         if(!is_null($limit)) {
-            $sql = "select * from " . self::getEntityName() . " ORDER BY title LIMIT $limit OFFSET $offset";
+            $sql = "select * from " . self::getEntityName() . " ORDER BY name LIMIT $limit OFFSET $offset";
             return self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
 
         }
         //return all books par ordre alphabétique
-        $sql = "select * from " . self::getEntityName() ." ORDER BY title";
+        $sql = "select * from " . self::getEntityName() ." ORDER BY name";
         return self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
     }
 
@@ -59,6 +59,14 @@ private static function Execute($sql, array $attributes =null)
             $result =  self::Execute($sql)->fetchAll(PDO::FETCH_CLASS, self::getClassName());
             //Comme fetchAll [0] on récupère le premier élément sinon c'est $result
             return $result[0];
+
+    }
+
+    public static function getByEmail(string $email)
+    {
+        $sql = "select * from " . self::getEntityName() . " where email = ?";
+        $result =  self::Execute($sql, [$email])->fetchAll(PDO::FETCH_CLASS, self::getClassName());
+        return $result[0];
 
     }
 
@@ -99,6 +107,19 @@ private static function Execute($sql, array $attributes =null)
         return $stmt->execute();
     }
 
-    
-        
+    // public static function hydrate($datas)
+    // {
+    //     foreach ($datas as $key => $value) {
+    //         //Récupère le nom du setter correspondant à la clé
+    //         //title ->setTitle 
+    //         $setter = 'set' . ucfirst($key);
+
+    //         //Verification di le setter existe
+    //         if (method_exists($this, $setter)) {
+    //             //Appelle le setter
+    //             $this->$setter($value);
+    //         }
+    //     }
+    //     return $this;
+    // }        
 }

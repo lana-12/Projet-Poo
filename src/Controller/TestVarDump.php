@@ -5,11 +5,13 @@ namespace Giaco\ProjetPoo\Controller;
 use Giaco\ProjetPoo\Kernel\Views;
 use Giaco\ProjetPoo\Kernel\AbstractController;
 
-class Login extends AbstractController {
+class TestVarDump extends AbstractController {
 
 
     public function index()
     {
+        
+
         
         $view = new Views();
         $view->setHead('head.html');
@@ -20,7 +22,7 @@ class Login extends AbstractController {
 
         $view->render([
             'flash' => $this->getFlashMessage(),
-            'titlePage' => 'Page LoginController',
+            'titlePage' => 'Page TestVarDump',
         ]);
     }
 }

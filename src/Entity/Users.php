@@ -2,18 +2,32 @@
 
 namespace Giaco\ProjetPoo\Entity;
 
+use PDO;
 use DateTime;
+use Giaco\ProjetPoo\Entity\Model;
 
 class Users extends Model{
 
     private int $id;
     private string $name;
+
+    /**
+     * Email unique
+     * Create constrain in BDD 
+     * ALTER TABLE users ADD UNIQUE (email);
+     * @var string
+     */
     private string $email;
     private string $password;
     private DateTime $created_at;
 
 
-    
+    // public function getByOneEmail(string $email)
+    // {
+    //     $sql = "select * from users where email = ?";
+    //     $result =  Model::Execute($sql, [$email])->fetchAll(PDO::FETCH_CLASS, self::getClassName());
+    //     return $result[0];
+    // }
 
 
     /**
