@@ -9,7 +9,7 @@ class Config {
     public const VIEWS = 'Views/';
     public const SECURITYVIEWS = 'Security/';
     public const TEMPLATES = 'Views/Templates/';
-    public const FORM = 'Views/FORM/';
+    // public const FORM = 'Views/FORM/';
 
 
     public const DBHOST = 'localhost';
@@ -18,5 +18,6 @@ class Config {
     public const DBNAME = 'projetpoo';
 
 
+    public const LOGIN = '/?controller=Authentificator&method=login';
 
 }
