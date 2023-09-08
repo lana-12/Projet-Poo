@@ -36,7 +36,7 @@ class Authentificator extends AbstractController{
                         $_SESSION['user_id'] = $userArray->getId();
                         $_SESSION['user_email'] = $userArray->getEmail();
                         // MyFunction::dump($_SESSION);
-                        header('Location: /?controller=home');
+                        header('Location: /?controller=project&method=index');
 
                     } else {
 

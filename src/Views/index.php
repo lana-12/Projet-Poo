@@ -1,7 +1,3 @@
-<?php
-
-var_dump($user->getName());
-?>
 <main class="container">
     <h1><?= $titlePage; ?></h1>
 
