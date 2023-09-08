@@ -2,6 +2,7 @@
 
 namespace Giaco\ProjetPoo\Controller;
 
+use Giaco\ProjetPoo\Entity\Model;
 use Giaco\ProjetPoo\Entity\Users;
 use Giaco\ProjetPoo\Kernel\Views;
 use Giaco\ProjetPoo\Kernel\Validate;
@@ -35,22 +36,24 @@ class User extends AbstractController
         if (isset($_POST['submit'])) {
             if (Validate::validate($_POST, ['name', 'email', 'password'])) {
 
-                //Crypter le MDP
-                $pass = password_hash($_POST['password'], PASSWORD_BCRYPT);
-                MyFunction::dump($pass);
+                    //Crypter le MDP
+                    $pass = password_hash($_POST['password'], PASSWORD_BCRYPT);
+                    MyFunction::dump($pass);
+                    MyFunction::dump($_POST['name']);
 
 
-                $result = false;
-                $result = Users::create([
-                    "name" => $_POST['name'],
-                    "email" => $_POST['email'],
-                    "password" => $pass,
-                ]);
+                    $result = false;
+                    $result = Users::create([
+                        "name" => $_POST['name'],
+                        "email" => $_POST['email'],
+                        "password" => $pass,
+                    ]);
 
-                MyFunction::dump($result);
-                if ($result) {
-                    $this->setFlashMessage("L'Utilisateur a été bien créé", "success");
-                }
+                    MyFunction::dump($result);
+                    if ($result) {
+                        $this->setFlashMessage("L'Utilisateur a été bien créé", "success");
+                    }
+                
             }
         }
 

@@ -2,6 +2,7 @@
 
 namespace Giaco\ProjetPoo\Kernel;
 
+
 class Validate 
 {
     /**
@@ -23,4 +24,7 @@ class Validate
         }
         return true;
     }
+
+
+    
 }

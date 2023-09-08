@@ -58,10 +58,10 @@ class Model  {
 
     public static function getById(int $id)
     {
-            $sql = "select * from " . self::getEntityName() . " where id=$id";
-            $result =  self::Execute($sql)->fetchAll(PDO::FETCH_CLASS, self::getClassName());
-            //Comme fetchAll [0] on récupère le premier élément sinon c'est $result
-            return $result[0];
+        $sql = "select * from " . self::getEntityName() . " where id=$id";
+        $result =  self::Execute($sql)->fetchAll(PDO::FETCH_CLASS, self::getClassName());
+        //Comme fetchAll [0] on récupère le premier élément sinon c'est $result
+        return $result[0];
 
     }
 
@@ -76,33 +76,14 @@ class Model  {
     public static function create($data)
     {
         $db = Database::getInstance();
-        $sql = "INSERT INTO " . self::getEntityName() . "(name, email, password) VALUES (:name, :email, :password)";
-        $stmt = $db->prepare($sql);
 
-        $stmt->bindParam(':name', $data['name'], PDO::PARAM_STR);
-        $stmt->bindParam(':email', $data['email'], PDO::PARAM_STR);
-        $stmt->bindParam(':password', $data['password'], PDO::PARAM_STR);
+        $columns = implode(', ', array_keys($data));
+        $placeholders = ':' . implode(', :', array_keys($data));
 
-        return $stmt->execute();
+        $sql = "INSERT INTO " . self::getEntityName() . " ($columns) VALUES ($placeholders)";
+        var_dump($sql);
+        return self::Execute($sql, $data);
     }
-
-
-    public static function createProject($data)
-    {
-        $db = Database::getInstance();
-        $sql = "INSERT INTO " . self::getEntityName() . "(title, content, id_user) VALUES (:title, :content, :id_user)";
-        $stmt = $db->prepare($sql);
-
-        $stmt->bindParam(':title', $data['title'], PDO::PARAM_STR);
-        $stmt->bindParam(':content', $data['content'], PDO::PARAM_STR);
-        $stmt->bindParam(':id_user', $data['id_user'], PDO::PARAM_STR);
-
-        return $stmt->execute();
-    }
-
-
-   
-
 
     public static function delete(int $id)
     {
@@ -110,6 +91,7 @@ class Model  {
         return self::Execute($sql, [$id]);
     }
 
+    //Faire comme la create
     public static function update(int $id, array $data)
     {
 

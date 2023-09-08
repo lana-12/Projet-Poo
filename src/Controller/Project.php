@@ -57,23 +57,17 @@ class Project extends AbstractController {
 
 
                     $result = false;
-                    $result = Projects::createProject([
+                    $result = Projects::create([
                         "title" => $_POST['title'],
                         "content" => $_POST['content'],
                         "id_user" => $id
                     ]);
-
-                    MyFunction::dump($result);
                     if ($result) {
                         $this->setFlashMessage("Le projet a été bien créé", "success");
                     }
                 }
             }
-
-            
-        } else {
-            $this->setFlashMessage("Vous devez être connecté pour accéder à cette page", "error");
-        }
+        } 
         
         
         $view = new Views();

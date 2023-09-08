@@ -1,4 +1,5 @@
 <main class="container">
+    <a href="/index.php?controller=project&method=index">Retour au Dashboard</a>
     <h2><?= $titlePage; ?></h2>
     <form action="index.php?controller=project&method=createProject" method="post" class="container mt-5">
         <div class="form-group">

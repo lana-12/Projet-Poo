@@ -22,13 +22,17 @@ class Users extends Model{
     private DateTime $created_at;
 
 
-    // public function getByOneEmail(string $email)
-    // {
-    //     $sql = "select * from users where email = ?";
-    //     $result =  Model::Execute($sql, [$email])->fetchAll(PDO::FETCH_CLASS, self::getClassName());
-    //     return $result[0];
-    // }
-
+    /**
+     * Verifed if unique e-mail
+     *
+     * @param [type] $user
+     * @param [type] $email
+     * @return void
+     */
+    public static function emailUnique($email)
+    {
+        return Model::getByEmail($email) ? true : false;
+    }
 
     /**
      * Get the value of id
