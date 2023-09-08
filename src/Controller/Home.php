@@ -12,8 +12,11 @@ class Home extends AbstractController{
     public function index()
     {
 
-        // $user = Users::getById(1);
-// MyFunction::dump($_SESSION);
+        if($_SESSION){
+         
+            // $user = Users::getById(1);
+    MyFunction::dump($_SESSION['user']['id']);
+        }
         $view = new Views();
         $view->setHead('head.html');
         $view->setHeader('header.html');
