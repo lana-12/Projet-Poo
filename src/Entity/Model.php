@@ -38,19 +38,22 @@ class Model  {
     }
 
 
-    public static function getAll(int $limit = null, int $offset = 0)
+    public static function getAll()
     {
-        // $db = DataBase::getInstance();
-        //return par order By Asc
-        if(!is_null($limit)) {
-            $sql = "select * from " . self::getEntityName() . " ORDER BY name LIMIT $limit OFFSET $offset";
+            $sql = "select * from " . self::getEntityName();
+            MyFunction::dump($sql);
             return self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
-
-        }
-        //return all books par ordre alphabétique
-        $sql = "select * from " . self::getEntityName() ." ORDER BY name";
-        return self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
     }
+
+
+    public static function getProjectUser(int $idUser)
+    {
+            $sql = "select * from " . self::getEntityName() . " where id_user=$idUser" ;
+            $result = self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
+            return $result;
+    }
+
+
 
 
     public static function getById(int $id)
@@ -73,16 +76,32 @@ class Model  {
     public static function create($data)
     {
         $db = Database::getInstance();
-        $sql = "INSERT INTO " . self::getEntityName() . "(title, author, type, description) VALUES (:title, :author, :type, :description)";
+        $sql = "INSERT INTO " . self::getEntityName() . "(name, email, password) VALUES (:name, :email, :password)";
         $stmt = $db->prepare($sql);
 
-        $stmt->bindParam(':title', $data['title'], PDO::PARAM_STR);
-        $stmt->bindParam(':author', $data['author'], PDO::PARAM_STR);
-        $stmt->bindParam(':type', $data['type'], PDO::PARAM_STR);
-        $stmt->bindParam(':description', $data['description'], PDO::PARAM_STR);
+        $stmt->bindParam(':name', $data['name'], PDO::PARAM_STR);
+        $stmt->bindParam(':email', $data['email'], PDO::PARAM_STR);
+        $stmt->bindParam(':password', $data['password'], PDO::PARAM_STR);
 
         return $stmt->execute();
     }
+
+
+    public static function createProject($data)
+    {
+        $db = Database::getInstance();
+        $sql = "INSERT INTO " . self::getEntityName() . "(title, content, id_user) VALUES (:title, :content, :id_user)";
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindParam(':title', $data['title'], PDO::PARAM_STR);
+        $stmt->bindParam(':content', $data['content'], PDO::PARAM_STR);
+        $stmt->bindParam(':id_user', $data['id_user'], PDO::PARAM_STR);
+
+        return $stmt->execute();
+    }
+
+
+   
 
 
     public static function delete(int $id)
@@ -95,13 +114,12 @@ class Model  {
     {
 
         $db = Database::getInstance();
-        $sql = "UPDATE " . self::getEntityName() . " SET title= :title, author= :author, type= :type, description = :description WHERE id= :id";
+        $sql = "UPDATE " . self::getEntityName() . " SET name= :name, email= :email, password= :password WHERE id= :id";
         $stmt = $db->prepare($sql);
 
-        $stmt->bindValue(':title', $data['title'],PDO::PARAM_STR);
-        $stmt->bindValue(':author', $data['author'],PDO::PARAM_STR);
-        $stmt->bindValue(':type', $data['type'],PDO::PARAM_STR);
-        $stmt->bindValue(':description', $data['description'],PDO::PARAM_STR);
+        $stmt->bindValue(':name', $data['name'],PDO::PARAM_STR);
+        $stmt->bindValue(':email', $data['email'],PDO::PARAM_STR);
+        $stmt->bindValue(':password', $data['password'],PDO::PARAM_STR);
         $stmt->bindValue(':id', $id ,PDO::PARAM_STR);
 
         return $stmt->execute();
