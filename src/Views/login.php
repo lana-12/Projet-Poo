@@ -17,7 +17,7 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Se connecter</button>
                 </form>
-                <p class="mt-3">Vous n'avez pas de compte ? <a href="#">Inscrivez-vous ici</a></p>
+                <p class="mt-3">Vous n'avez pas de compte ? <a href="index.php?controller=user&method=create">Inscrivez-vous ici</a></p>
             </div>
         </div>
     </div>
