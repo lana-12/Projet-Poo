@@ -6,21 +6,19 @@ use Giaco\ProjetPoo\Entity\Users;
 use Giaco\ProjetPoo\Kernel\Views;
 use Giaco\ProjetPoo\Kernel\Validate;
 use Giaco\ProjetPoo\Utils\MyFunction;
+use Giaco\ProjetPoo\Configuration\Config;
 use Giaco\ProjetPoo\Kernel\AbstractController;
 
 class User extends AbstractController
 {
     public function index()
     {
-        
-
-
         $user = Users::getAll();
 
         $view = new Views();
         $view->setHead('head.html');
         $view->setHeader('header.html');
-        $view->setHtml('Form/createUser.php');
+        $view->setHtml('User/createUser.php');
         $view->setFooter('footer.html');
 
         $view->render([
@@ -60,7 +58,7 @@ class User extends AbstractController
         $view = new Views();
         $view->setHead('head.html');
         $view->setHeader('header.html');
-        $view->setHtml('Form/createUser.php');
+        $view->setHtml('User/register.php');
         $view->setFooter('footer.html');
 
 

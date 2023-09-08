@@ -2,23 +2,28 @@
 
 namespace Giaco\ProjetPoo\Controller;
 
-use Giaco\ProjetPoo\Entity\Priority;
 use Giaco\ProjetPoo\Kernel\Views;
 use Giaco\ProjetPoo\Entity\Status;
+use Giaco\ProjetPoo\Entity\Priority;
 use Giaco\ProjetPoo\Entity\Projects;
 use Giaco\ProjetPoo\Kernel\Validate;
 use Giaco\ProjetPoo\Utils\MyFunction;
+use Giaco\ProjetPoo\Configuration\Config;
 use Giaco\ProjetPoo\Kernel\AbstractController;
 
 class Project extends AbstractController {
 
     public function index()
     {
+        if (!$_SESSION) {
+            header('Location: '. Config::LOGIN);
+        }
 
-        $projects = Projects::getProjectUser($_SESSION['user_id']);
+        $projects = Projects::getProjectUser($_SESSION['user']['id']);
         $status = Status::getAll();
         $priorities = Priority::getAll();
 
+        var_dump($_SESSION);
         // var_dump($status[]);
 
         $view = new Views();
@@ -29,7 +34,7 @@ class Project extends AbstractController {
 
         $view->render([
             'flash' => $this->getFlashMessage(),
-            'titlePage' => 'Pase ProjectIndexController',
+            'titlePage' => 'Page ProjectIndexController',
             'projects' =>$projects,
             // 'status' =>$status,
             // 'priorities' =>$priorities,
@@ -42,8 +47,8 @@ class Project extends AbstractController {
     public function createProject()
     {
 
-        if(isset($_SESSION['user_id'])){
-            $id = $_SESSION['user_id'];
+        if(isset($_SESSION['user']['id'])){
+            $id = $_SESSION['user']['id'];
             if (isset($_POST['submit'])) {
                 if (Validate::validate($_POST, ['title', 'content'])) {
 
