@@ -3,9 +3,18 @@ body {
     height: 100%;
 }
 
-.showBook {   
-    margin: auto;
-    border: solid #fff 2px;
-    padding: 40px;
+.showBox {   
+    border: solid #000 1px;
+    padding: 10px;
+    margin-top: 50px;
 }
 
+
+/* Class  */
+.center {
+    text-align: center;
+}
+
+.titlePage{
+    margin: 20px 0;
+}

@@ -14,10 +14,6 @@ class Projects extends Model{
     private DateTime $created_at;
     private int  $idAdmin;
 
-
-    
-
-
     /**
      * Get the value of id
      */ 

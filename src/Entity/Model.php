@@ -41,7 +41,7 @@ class Model  {
     public static function getAll()
     {
             $sql = "select * from " . self::getEntityName();
-            MyFunction::dump($sql);
+            // MyFunction::dump($sql);
             return self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
     }
 
@@ -49,6 +49,13 @@ class Model  {
     public static function getProjectUser(int $idUser)
     {
             $sql = "select * from " . self::getEntityName() . " where id_user=$idUser" ;
+            $result = self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
+            return $result;
+    }
+
+    public static function getProjectTask(int $idProjet)
+    {
+            $sql = "select * from " . self::getEntityName() . " where id_project=$idProjet" ;
             $result = self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
             return $result;
     }
@@ -75,7 +82,6 @@ class Model  {
 
     public static function create($data)
     {
-        $db = Database::getInstance();
 
         $columns = implode(', ', array_keys($data));
         $placeholders = ':' . implode(', :', array_keys($data));

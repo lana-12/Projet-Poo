@@ -14,4 +14,15 @@ class MyFunction {
     }
 
 
+    /**
+     * Display date => format fr d/m/Y (20/01/2023)
+     *
+     * @param [type] $date
+     * @return void
+     */
+    public static function dateFormat($date)
+    {
+        return date("d/m/Y", strtotime($date));
+    }
+
 }
