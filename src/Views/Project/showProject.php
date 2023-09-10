@@ -1,28 +1,66 @@
+<?php
+
+use Giaco\ProjetPoo\Entity\Priority;
+use Giaco\ProjetPoo\Entity\Status;
+use Giaco\ProjetPoo\Entity\Users;
+
+ ?>
+
+
+
 <main class="container">
     <a href="/index.php?controller=project&method=index">Retour au Dashboard</a>
     <h1 class="center titlePage"><?= $project->getTitle(); ?></h1>
 
-    <h2>Description : </h2>
-    <p><?= $project->getContent() ?></p>
 
-    <h3>Les Tâches</h3>
+    <div class="row">
+        <div class="col">
 
-    <?php foreach ($tasks as $task) :  ?>
+            <h2>Description : </h2>
+            <p><?= $project->getContent() ?></p>
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h3>Les Tâches</h3>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Ajouter une Tâche
+            </button>
+
+            <?php foreach ($tasks as $task) :  ?>
 
 
-        <h4>Titre : <?= $task->getTitle() ?></h4>
-        <p>Description : <?= $task->getContent() ?></p>
-        <p>Statut : <?= $task->getId_status() ?></p>
-        <p>Priorité : <?= $task->getId_priority() ?></p>
-        <p>User : <?= $task->getId_user() ?></p>
+                <h4>Titre : <?= $task->getTitle() ?></h4>
+                <p>Description : <?= $task->getContent() ?></p>
+
+                <p>Statut :
+                    <?php foreach (Status::getNameStatus($task->getId_status()) as $stat) : ?>
+                        <?= $stat->getName() ?>
+                    <?php endforeach; ?>
+                </p>
 
 
-    <?php endforeach  ?>
+                <p>Priorité : <?php foreach (Priority::getNamePriority($task->getId_priority()) as $priority) : ?>
+                        <?= $priority->getName() ?>
+                    <?php endforeach; ?></p>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Ajouter une Tâche
-    </button>
+
+
+                <p>User : 
+                    <?php foreach (Users::getNameUser($task->getId_user()) as $user) : ?>
+                        <?= $user->getName() ?>
+                    <?php endforeach; ?>
+                </p>
+
+
+            <?php endforeach  ?>
+        </div>
+    </div>
+
+
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
