@@ -22,3 +22,11 @@
         cursor: pointer;
     }
 }
+
+
+@mixin box {
+    background-color: $orange;
+    border-radius: 5%;
+    padding: 20px;
+    width: 400px;
+}

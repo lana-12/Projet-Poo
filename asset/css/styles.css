@@ -54,6 +54,40 @@ body {
   cursor: pointer;
 }
 
+.mainForm {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.mainForm .boxForm {
+  background-color: #FFA500;
+  border-radius: 5%;
+  padding: 20px;
+  width: 500px;
+}
+.mainForm .boxForm h2 {
+  margin: 10px 0;
+}
+.mainForm .boxForm input, .mainForm .boxForm textarea, .mainForm .boxForm select {
+  margin-bottom: 20px;
+}
+.mainForm .boxForm button {
+  background-color: #0f056b;
+  color: #fff;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  text-decoration: none;
+  transition: 0.6s;
+  transition-property: background-color, color;
+}
+.mainForm .boxForm button:hover {
+  background-color: #0f056b;
+  color: #fff;
+  cursor: pointer;
+}
+
 .navbar {
   background-color: #0f056b;
   color: #FFA500;
@@ -144,4 +178,69 @@ footer a {
 }
 .boxLogin .lienRegister {
   text-decoration: underline;
+}
+
+.backP {
+  background-color: #FFA500;
+  color: #0f056b;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  text-decoration: none;
+  transition: 0.6s;
+  transition-property: background-color, color;
+}
+.backP:hover {
+  background-color: #0f056b;
+  color: #fff;
+  cursor: pointer;
+}
+
+.headerP {
+  margin: 20px 0;
+  padding: 0 20px;
+  border: solid #FFA500 1px;
+  background-color: #0f056b;
+  color: #fff;
+  box-shadow: 10px 5px 5px #000;
+}
+.headerP .content {
+  text-indent: 10%;
+}
+
+.btnProjet {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 50px 0;
+}
+
+.gallery {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.boxTask {
+  margin: 20px 10px;
+  background-color: #FFA500;
+  border-radius: 5%;
+  padding: 20px;
+  width: 400px;
+}
+.boxTask .editTask {
+  background-color: #0f056b;
+  color: #FFA500;
+  border-radius: 5px;
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  text-decoration: none;
+  transition: 0.6s;
+  transition-property: background-color, color;
+}
+.boxTask .editTask:hover {
+  background-color: #0f056b;
+  color: #FFA500;
+  cursor: pointer;
 }/*# sourceMappingURL=styles.css.map */

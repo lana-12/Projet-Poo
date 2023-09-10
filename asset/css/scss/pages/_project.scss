@@ -1,0 +1,36 @@
+.backP{
+    @include btnCustom($orange, $blueNight, $blueNight, #fff);
+}
+
+.headerP {
+    margin: 20px 0;
+    padding: 0 20px;
+    border: solid $orange 1px;
+    background-color: $blueNight;
+    color: #fff;
+    box-shadow: 10px 5px 5px #000;
+    & .content {
+        text-indent: 10%;
+    }
+}
+
+.btnProjet {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 50px 0;
+}
+
+.gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+
+.boxTask{
+    margin: 20px 10px;
+    @include box;
+    & .editTask {
+        @include btnCustom($blueNight, $orange, $blueNight,$orange)
+    }
+}

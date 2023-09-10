@@ -4,7 +4,10 @@
 
 
     <?php if ($_SESSION) { ?>
-        <a href="/?controller=project&method=index" class="btn btn-primary">Retour sur mon espace</a>
+        <p class="center">Vous êtes déjà connecter </p>
+        <div class="center">
+            <a href="/?controller=user&method=index" class="btnC">Retour sur mon espace</a>
+        </div>
 
 
     <?php } else { ?>

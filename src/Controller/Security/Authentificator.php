@@ -19,6 +19,7 @@ class Authentificator extends AbstractController{
             if(Validate::validate($_POST, ['email','password'] )) {
 
                 $userArray = Users::getByEmail(strip_tags($_POST['email']));
+                
 
                 if ($userArray) {
                         if (password_verify($_POST['password'], $userArray->getPassword())) {
@@ -30,7 +31,8 @@ class Authentificator extends AbstractController{
                             ];
                             // $_SESSION['user_id'] = $userArray->getId();
                             // $_SESSION['user_email'] = $userArray->getEmail();
-                            header('Location: /?controller=project&method=index');
+                            header('Location: /?controller=user&method=index');
+                            // header('Location: /?controller=project&method=index');
                         } else {
                             $this->setFlashMessage('L\'adresse e-mail et/ou le Mot de passe est incorrect', 'error');
                         }

@@ -59,6 +59,12 @@ class Model  {
             return $result;
     }
 
+    public static function getTaskUser(int $idUser)
+    {
+        $sql = "select * from " . self::getEntityName() . " where id_user=$idUser";
+        $result = self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
+        return $result;
+    }
 
     /**
      * Request for get all tasks by project
@@ -68,68 +74,22 @@ class Model  {
      */
     public static function getProjectTask(int $idProjet)
     {
-            $sql = "select * from " . self::getEntityName() . " where id_project=$idProjet" ;
+            // $sql = "select * from " . self::getEntityName() . " where id_project=$idProjet" ;
+            $sql = "
+                SELECT *, status.name, priority.name As name_prio , users.name As name_user 
+                from tasks, status, priority, users
+                WHERE tasks.id_project = $idProjet 
+                AND tasks.id_status = status.id
+                AND tasks.id_priority = priority.id
+                AND tasks.id_user = users.id
+                " ;
             $result = self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
             return $result;
     }
 
 
-    /**
-     * Request for get NameStatus by task
-     *
-     * @param integer $id_status
-     */
-    public static function getNameStatus(int $id_status){
-        $sql = "SELECT DISTINCT  tasks.id_status, status.name 
-            FROM tasks 
-            INNER JOIN status ON tasks.id_status = status.id 
-            WHERE tasks.id_status = $id_status";
-        $result = self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
-        // if ($result) {
-        //     return $result['name'];
-        // } else {
-        //     return null; 
-        // }
-        return $result;
-    }
-
-    /**
-     * Request for get NamePriority by task
-     *
-     * @param integer $id_priority
-     */
-    public static function getNamePriority(int $id_priority){
-        $sql = "SELECT DISTINCT  tasks.id_priority, priority.name 
-            FROM tasks 
-            INNER JOIN priority ON tasks.id_priority = priority.id 
-            WHERE tasks.id_priority = $id_priority";
-        $result = self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
-        // if ($result) {
-        //     return $result['name'];
-        // } else {
-        //     return null; 
-        // }
-        return $result;
-    }
-
-    /**
-     * Request for get NameUser by task
-     *
-     * @param integer $id_user
-     */
-    public static function getNameUser(int $id_user){
-        $sql = "SELECT DISTINCT  tasks.id_user, users.name 
-            FROM tasks 
-            INNER JOIN users ON tasks.id_user = users.id 
-            WHERE tasks.id_user = $id_user";
-        $result = self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
-        // if ($result) {
-        //     return $result['name'];
-        // } else {
-        //     return null; 
-        // }
-        return $result;
-    }
+    
+    
 
 
     public static function getById(int $id)
@@ -138,6 +98,22 @@ class Model  {
         $result =  self::Execute($sql)->fetchAll(PDO::FETCH_CLASS, self::getClassName());
         //Comme fetchAll [0] on récupère le premier élément sinon c'est $result
         return $result[0];
+
+    }
+
+
+    public static function getByIdTask(int $id)
+    {
+        $sql = "
+            SELECT *, status.name, priority.name As name_prio , users.name As name_user 
+            from tasks, status, priority, users
+            WHERE tasks.id = $id 
+            AND tasks.id_status = status.id
+            AND tasks.id_priority = priority.id
+            AND tasks.id_user = users.id";
+        $result =  self::Execute($sql)->fetchAll(PDO::FETCH_CLASS, self::getClassName());
+        //Comme fetchAll [0] on récupère le premier élément sinon c'est $result
+        return $result;
 
     }
 
@@ -187,35 +163,68 @@ class Model  {
         return self::Execute($sql, $params);
     }
 
-    //Faire comme la create
-    // public static function update(int $id, array $data)
-    // {
 
-    //     $db = Database::getInstance();
-    //     $sql = "UPDATE " . self::getEntityName() . " SET name= :name, email= :email, password= :password WHERE id= :id";
-    //     $stmt = $db->prepare($sql);
 
-    //     $stmt->bindValue(':name', $data['name'],PDO::PARAM_STR);
-    //     $stmt->bindValue(':email', $data['email'],PDO::PARAM_STR);
-    //     $stmt->bindValue(':password', $data['password'],PDO::PARAM_STR);
-    //     $stmt->bindValue(':id', $id ,PDO::PARAM_STR);
+    /////////////////////////////////////////
+    // First test for get statusName, userName and PriorityName but Inconclusive
+    /**
+     * Request for get NameStatus by task
+     *
+     * @param integer $id_status
+     */
+    public static function getNameStatus(int $id_status)
+    {
+        $sql = "SELECT DISTINCT tasks.id_status, status.name 
+            FROM tasks 
+            INNER JOIN status ON tasks.id_status = status.id 
+            WHERE tasks.id_status = $id_status";
+        // MyFunction::dump($sql);
+        $result = self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
+        // if ($result) {
+        //     return $result['name'];
+        // } else {
+        //     return null; 
+        // }
+        return $result;
+    }
 
-    //     return $stmt->execute();
-    // }
+    /**
+     * Request for get NamePriority by task
+     *
+     * @param integer $id_priority
+     */
+    public static function getNamePriority(int $id_priority)
+    {
+        $sql = "SELECT DISTINCT  tasks.id_priority, priority.name 
+            FROM tasks 
+            INNER JOIN priority ON tasks.id_priority = priority.id 
+            WHERE tasks.id_priority = $id_priority";
+        $result = self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
+        // if ($result) {
+        //     return $result['name'];
+        // } else {
+        //     return null; 
+        // }
+        return $result;
+    }
 
-    // public static function hydrate($datas)
-    // {
-    //     foreach ($datas as $key => $value) {
-    //         //Récupère le nom du setter correspondant à la clé
-    //         //title ->setTitle 
-    //         $setter = 'set' . ucfirst($key);
-
-    //         //Verification di le setter existe
-    //         if (method_exists($this, $setter)) {
-    //             //Appelle le setter
-    //             $this->$setter($value);
-    //         }
-    //     }
-    //     return $this;
-    // }        
+    /**
+     * Request for get NameUser by task
+     *
+     * @param integer $id_user
+     */
+    public static function getNameUser(int $id_user)
+    {
+        $sql = "SELECT DISTINCT  tasks.id_user, users.name 
+            FROM tasks 
+            INNER JOIN users ON tasks.id_user = users.id 
+            WHERE tasks.id_user = $id_user";
+        $result = self::Execute($sql)->fetchAll(\PDO::FETCH_CLASS, self::getClassName());
+        // if ($result) {
+        //     return $result['name'];
+        // } else {
+        //     return null; 
+        // }
+        return $result;
+    }
 }

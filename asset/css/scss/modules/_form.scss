@@ -1,0 +1,23 @@
+.mainForm {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    & .boxForm {
+        background-color: $orange;
+        border-radius: 5%;
+        padding: 20px;
+        width: 500px;
+        & h2 {
+            margin: 10px 0;
+        }
+        & input, textarea, select {
+            margin-bottom: 20px;
+        }
+        & button {
+            @include btnCustom($blueNight, #fff,
+                $blueNight, #fff,);
+        }
+    }
+}
+
+

@@ -1,6 +1,6 @@
 <main class="container">
     <?php if ($_SESSION) {
-        header('Location: /?controller=project&method=index');
+        header('Location: /?controller=user&method=index');
     } ?>
 
     <div class="container mt-5">
