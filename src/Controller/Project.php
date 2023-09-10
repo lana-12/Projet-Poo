@@ -31,6 +31,7 @@ class Project extends AbstractController {
 
         $view->render([
             'flash' => $this->getFlashMessage(),
+            'title' => 'Mon Espace',
             'titlePage' => 'Mon Espace',
             'projects' =>$projects,
         ]);
@@ -85,7 +86,22 @@ class Project extends AbstractController {
         $users = Users::getAll();
 
         $tasks = Tasks::getProjectTask($project->getId());
-        
+
+        //Start
+        //Test pour récupérer id_status=> name
+        // J'ai du faire un use dans ma vue par cool
+        // foreach($tasks as $task){
+        //     $statusName = Status::getNameStatus($task->getId_status());
+        //     // MyFunction::dump($status);
+        //     return $statusName;
+        // }
+
+        // $statusName = Status::getNameStatus($task->getId_status());
+        // $statusName = Status::getNameStatus($tasks->getId_status());
+        // MyFunction::dump($status);
+        //END
+
+
         $view = new Views();
         $view->setHead('head.html');
         $view->setHeader('header.html');
@@ -94,12 +110,14 @@ class Project extends AbstractController {
 
         $view->render([
             'flash' => $this->getFlashMessage(),
+            'title' => 'Mon projet',
             'titlePage' => 'Mon projet',
             'project'=> $project,
             'users'=> $users,
             'status' =>$status,
             'priorities' =>$priorities,
             'tasks' => $tasks,
+            // 'statusName' => $statusName,
         ]);
     }
 

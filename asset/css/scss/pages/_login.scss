@@ -1,0 +1,19 @@
+.loginMain {
+    display: flex;
+    justify-content: center;
+}
+
+.boxLogin {
+    background-color: $orange;
+    border-radius: 5%;
+    padding: 20px;
+    width: 400px;
+    & button {
+        @include btnCustom($blueNight, #fff,
+        #fff, $blueNight);
+    }
+    & .lienRegister {
+        text-decoration: underline;
+    }
+
+}

@@ -1,0 +1,27 @@
+.navbar {
+    background-color: $blueNight;
+    color: $orange;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: none;
+            color: $orange;
+            margin-left: 20px;
+        }
+    & .nav-link {
+        color: #fff;
+        text-decoration: none;
+    }
+    & .navbar-toggler {
+        background-color: $orange;
+    }
+}
+
+
+
+
+
