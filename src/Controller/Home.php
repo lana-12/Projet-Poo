@@ -26,7 +26,7 @@ class Home extends AbstractController{
 
         $view->render([
             'flash' => $this->getFlashMessage(),
-            'titlePage' => 'Page HomeController',
+            'titlePage' => 'Bienvenue',
         ]);
     }
 

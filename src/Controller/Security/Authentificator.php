@@ -49,6 +49,7 @@ class Authentificator extends AbstractController{
         $view->render([
             'flash' => $this->getFlashMessage(),
             'titlePage' => 'Connexion',
+            'title' => 'Connexion',
         ]);
     }
 
@@ -70,17 +71,5 @@ class Authentificator extends AbstractController{
         header("Location: /");
     }
 
-    //Ancienne method
-    // public function logout()
-    // {
-    //     // Détruire toutes les variables de session
-    //     session_start(); // Démarrez la session si ce n'est pas déjà fait
-    //     session_unset();
-    //     session_destroy();
-
-    //     // Redirigez l'utilisateur vers la page de connexion par exemple
-    //     header('Location: index.php?controller=authentificator&method=login');
-    //     exit;
-    // }
 
 }
