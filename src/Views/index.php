@@ -1,21 +1,22 @@
-<main class="container">
+<main class=" homePage">
 
-    <h1><?= $titlePage; ?></h1>
-    <p>Ceci est ma page d'Accueil, </p>
-    <p>Bienvenue... à vous !!!!</p>
+    <h1 class="center"><?= $titlePage; ?></h1>
+
 
     <?php if ($_SESSION) { ?>
         <a href="/?controller=project&method=index" class="btn btn-primary">Retour sur mon espace</a>
-        
+
 
     <?php } else { ?>
+        <div class="">
+            <p class="center">Pour pouvoir accéder à votre espace </p>
 
-        <div class="alert alert-danger" role="alert">
-            <p>Vous devez être connecté pour accéder à votre compte</p>
-            <div>
-                <a href="/?controller=authentificator&method=login">Connexion</a>
-                <a href="/?controller=user&method=create">Inscrivez-vous</a>
+            <div class="center">
+                <a href="/?controller=authentificator&method=login" class=" btnC">Connectez-vous</a>
+                <a href="/?controller=user&method=create" class=" btnC">Inscrivez-vous</a>
+
             </div>
+
         </div>
 
     <?php } ?>
