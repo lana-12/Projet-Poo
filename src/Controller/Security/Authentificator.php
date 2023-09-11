@@ -29,10 +29,13 @@ class Authentificator extends AbstractController{
                                 'email' => $userArray->getEmail(),
                                 'name' => $userArray->getName(),
                             ];
-                            // $_SESSION['user_id'] = $userArray->getId();
-                            // $_SESSION['user_email'] = $userArray->getEmail();
-                            header('Location: /?controller=user&method=index');
-                            // header('Location: /?controller=project&method=index');
+                            $id= $_SESSION['user']['id'];
+                        // $_SESSION['user_id'] = $userArray->getId();
+                        // $_SESSION['user_email'] = $userArray->getEmail();
+
+                        // header('Location: /?controller=project&method=index');
+                        header("Location: index.php?controller=user&method=index&id=$id");
+
                         } else {
                             $this->setFlashMessage('L\'adresse e-mail et/ou le Mot de passe est incorrect', 'error');
                         }

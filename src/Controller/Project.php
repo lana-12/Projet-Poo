@@ -21,14 +21,21 @@ class Project extends AbstractController {
             header('Location: ' . Config::LOGIN);
         }
 
+        //Récupère le projet
         $id = $_GET['id'];
-
         $project = Projects::getById($id);
+        // MyFunction::dump($id);
+        // MyFunction::dump($project);
+
+
         $status = Status::getAll();
         $priorities = Priority::getAll();
         $users = Users::getAll();
 
+
         $tasks = Tasks::getProjectTask($project->getId());
+        // MyFunction::dump($tasks);
+
 
 
         $view = new Views();
@@ -65,7 +72,7 @@ class Project extends AbstractController {
                     ]);
                     if ($result) {
                         $this->setFlashMessage("Le projet a été bien créé", "success");
-                        header('Location: ' );
+                        header("Location: index.php?controller=user&method=index&id=$id");
                     }
                 }
             }
@@ -87,6 +94,10 @@ class Project extends AbstractController {
 
     public function update()
     {
+        if (!$_SESSION) {
+            header('Location: ' . Config::LOGIN);
+        }
+        $idUser = $_SESSION['user']['id'];
         
         $id= $_GET['id'];
         MyFunction::dump($id);
@@ -96,17 +107,14 @@ class Project extends AbstractController {
             MyFunction::dump($id);
             if (Validate::validate($_POST, ['title', 'content'])) {
 
-    ////////////////////
-    //Probleme avec la update
-
                 $result = false;
                 $result = Projects::update($id,[
                     "title" => $_POST['title'],
                     "content" => $_POST['content'],
                 ]);
                 if ($result) {
-                    $this->setFlashMessage("Le projet a été bien créé", "success");
-                    header('Location: ');
+                    $this->setFlashMessage("Le projet a été bien Modifié", "success");
+                    header("Location: index.php?controller=user&method=index&id=$idUser");
                 }
             }
         }
@@ -123,5 +131,21 @@ class Project extends AbstractController {
             'project' => $project,
 
         ]);
+    }
+
+
+    public function delete()
+    {
+        MyFunction::dump($_GET['id']);
+        $result = false;
+        $this->setFlashMessage('Aucun projet ne correspond', 'error');
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $result = Projects::delete($id);
+        }
+        if ($result) {
+            $this->setFlashMessage("Le projet a bien été supprimé", "success");
+        }
+        header("Location: index.php?controller=user&method=index&id=$id");
     }
 }

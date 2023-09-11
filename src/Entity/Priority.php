@@ -48,4 +48,6 @@ class Priority extends Model {
 
         return $this;
     }
+
+
 }

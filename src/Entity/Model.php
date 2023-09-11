@@ -76,9 +76,10 @@ class Model  {
     {
             // $sql = "select * from " . self::getEntityName() . " where id_project=$idProjet" ;
             $sql = "
-                SELECT *, status.name, priority.name As name_prio , users.name As name_user 
+                SELECT *, tasks.id, status.name, priority.name As name_prio , users.name As name_user 
                 from tasks, status, priority, users
-                WHERE tasks.id_project = $idProjet 
+                WHERE tasks.id_project = $idProjet
+                AND tasks.id = tasks.id 
                 AND tasks.id_status = status.id
                 AND tasks.id_priority = priority.id
                 AND tasks.id_user = users.id
@@ -105,15 +106,16 @@ class Model  {
     public static function getByIdTask(int $id)
     {
         $sql = "
-            SELECT *, status.name, priority.name As name_prio , users.name As name_user 
+            SELECT *, tasks.id, status.name, priority.name As name_prio , users.name As name_user 
             from tasks, status, priority, users
             WHERE tasks.id = $id 
+            AND tasks.id = tasks.id
             AND tasks.id_status = status.id
             AND tasks.id_priority = priority.id
             AND tasks.id_user = users.id";
         $result =  self::Execute($sql)->fetchAll(PDO::FETCH_CLASS, self::getClassName());
         //Comme fetchAll [0] on récupère le premier élément sinon c'est $result
-        return $result;
+        return $result[0];
 
     }
 
@@ -123,6 +125,14 @@ class Model  {
         $result =  self::Execute($sql, [$email])->fetchAll(PDO::FETCH_CLASS, self::getClassName());
         return $result[0];
 
+    }
+
+
+    public static function getIdByName($name)
+    {
+        $sql = "SELECT id FROM " . self::getEntityName() . " WHERE name = ? ";
+        $result =  self::Execute($sql, [$name])->fetchAll(PDO::FETCH_CLASS, self::getClassName());
+        return $result[0];
     }
 
     public static function create($data)
@@ -159,12 +169,13 @@ class Model  {
         $params[':id'] = $id;
 
         $sql = "UPDATE " . self::getEntityName() . " SET $setClause WHERE id = :id";
-
+MyFunction::dump($sql);
         return self::Execute($sql, $params);
     }
 
 
 
+    //////////////////////////////////////////
     /////////////////////////////////////////
     // First test for get statusName, userName and PriorityName but Inconclusive
     /**
