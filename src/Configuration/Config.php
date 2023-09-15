@@ -18,6 +18,12 @@ class Config {
     public const DBNAME = 'projetpoo';
 
 
-    public const LOGIN = '/?controller=Authentificator&method=login';
+    // public const DBNAME = 'projetpoo';
+
+    
+
+    public const LOGIN = 'index.php?controller=Authentificator&method=login';
+
+    public const PROVIDER = 'Users';
 
 }

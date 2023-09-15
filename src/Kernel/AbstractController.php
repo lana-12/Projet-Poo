@@ -2,6 +2,9 @@
 
 namespace Giaco\ProjetPoo\Kernel;
 
+use Giaco\ProjetPoo\Configuration\Config;
+use Giaco\ProjetPoo\Controller\Security\Authentificator;
+
 class AbstractController
 {
     private ?string $flashMessage = null;
@@ -23,5 +26,11 @@ class AbstractController
         }
         $this->flashMessage = "<p>$message</p>";
         return $this;
+    }
+
+    public function authenticate(){
+        if (!Authentificator::is_connected()) {
+            header('Location:  ' . Config::LOGIN);
+        }
     }
 }

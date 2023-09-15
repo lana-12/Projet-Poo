@@ -71,4 +71,5 @@ class Views
         include(dirname(__FILE__) . "/../" . $this->html);
         include(dirname(__FILE__) . "/../" . $this->footer);
     }
+    
 }

@@ -9,36 +9,35 @@ use Giaco\ProjetPoo\Utils\MyFunction;
 use Giaco\ProjetPoo\Configuration\Config;
 use Giaco\ProjetPoo\Kernel\AbstractController;
 
-class Authentificator extends AbstractController{
+class Authentificator extends AbstractController
+{
 
-    public function login(){
-
-        
+    public function login()
+    {
         if (isset($_POST['connexion']) && $_POST['connexion'] === 'connect') {
 
-            if(Validate::validate($_POST, ['email','password'] )) {
+            if (Validate::validate($_POST, ['email', 'password'])) {
 
                 $userArray = Users::getByEmail(strip_tags($_POST['email']));
-                
+
 
                 if ($userArray) {
-                        if (password_verify($_POST['password'], $userArray->getPassword())) {
-                            session_start();
-                            $_SESSION['user'] = [
-                                'id' => $userArray->getId(),
-                                'email' => $userArray->getEmail(),
-                                'name' => $userArray->getName(),
-                            ];
-                            $id= $_SESSION['user']['id'];
+                    if (password_verify($_POST['password'], $userArray->getPassword())) {
+                        session_start();
+                        $_SESSION['user'] = [
+                            'id' => $userArray->getId(),
+                            'email' => $userArray->getEmail(),
+                            'name' => $userArray->getName(),
+                        ];
+                        $id = $_SESSION['user']['id'];
                         // $_SESSION['user_id'] = $userArray->getId();
                         // $_SESSION['user_email'] = $userArray->getEmail();
 
                         // header('Location: /?controller=project&method=index');
                         header("Location: index.php?controller=user&method=index&id=$id");
-
-                        } else {
-                            $this->setFlashMessage('L\'adresse e-mail et/ou le Mot de passe est incorrect', 'error');
-                        }
+                    } else {
+                        $this->setFlashMessage('L\'adresse e-mail et/ou le Mot de passe est incorrect', 'error');
+                    }
                 } else {
                     $this->setFlashMessage('L\'adresse e-mail et/ou le Mot de passe est incorrect', 'error');
                 }
@@ -58,12 +57,32 @@ class Authentificator extends AbstractController{
         ]);
     }
 
+    public static function is_connected()
+    {
+        session_start();
+        if (isset($_COOKIE['PHPSESSID']) && isset($_SESSION['user'])) {
+            // MyFunction::dump($_COOKIE['PHPSESSID']);
+            // MyFunction::dump($_SESSION['user']);
+            return true;
+        }
+        setcookie('PHPSESSID', '', time() - 3600, '/');
+        session_destroy();
+        // else {
+        //     session_destroy();
+        //     self::logout();
+        //     return false;
+        // }
+        return false;
+    }
 
     public function logout()
     {
-        if (isset($_SESSION['user'])) {
+        // if (isset($_SESSION['user'])) {
             //On supp la session['user']
             unset($_SESSION['user']);
+            setcookie('PHPSESSID', '', time() - 3600, '/');
+
+            session_destroy();
 
             // Redirection
             // Soit vers home
@@ -72,9 +91,11 @@ class Authentificator extends AbstractController{
             // Soit user reste sur la même page
             // header("Location: " . $_SERVER['HTTP_REFERER']);
             exit;
-        }
+        // }
         header("Location: /");
+        // var_dump($_SESSION);
+        // echo htmlspecialchars(session_id());
+        // die;
+
     }
-
-
 }

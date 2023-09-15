@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* RESET CSS */
 *,
 ::before,
@@ -16,10 +17,40 @@ ul {
   list-style: none;
 }
 
+/* Réinitialisation des marges et des rembourrages pour le body et l'HTML */
+html,
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
   font-family: Arial, sans-serif;
+}
+
+/* Style de base pour le contenu principal */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+main {
+  flex: 1;
+  /* Le contenu principal prendra toute la hauteur disponible */
+}
+
+/* Style du pied de page */
+footer {
+  position: relative;
+  /* Position relative pour positionner le pied de page par rapport au contenu principal */
+  bottom: 0;
+  /* Le pied de page reste en bas */
+  width: 100%;
+  background-color: #333;
+  /* Couleur de fond du pied de page */
+  color: #fff;
+  /* Couleur du texte du pied de page */
+  padding: 10px;
+  /* Espacement intérieur du pied de page */
 }
 
 .showBox {
@@ -62,6 +93,21 @@ body {
   width: 400px;
 }
 
+/* CSS existant... */
+/* Nouveau code pour le pied de page */
+.homePage {
+  min-height: 100vh;
+  /* Définit la hauteur minimale du contenu principal pour occuper au moins 100% de la hauteur de la fenêtre (viewport) */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Assurez-vous que le pied de page reste en bas */
+.footer {
+  margin-top: auto;
+}
+
+/* CSS existant... */
 .btnC {
   background-color: #FFA500;
   color: #0f056b;

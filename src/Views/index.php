@@ -3,7 +3,7 @@
     <h1 class="center"><?= $titlePage; ?></h1>
 
 
-    <?php if ($_SESSION) { ?>
+    <?php if (isset($_SESSION)) { ?>
         <p class="center">Vous êtes déjà connecter </p>
         <div class="center">
             <a href="/?controller=user&method=index" class="btnC">Retour sur mon espace</a>

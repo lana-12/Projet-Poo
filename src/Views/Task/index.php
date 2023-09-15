@@ -21,6 +21,8 @@
             </div>
         </div>
     </div>
+
+    
     <!-- Modal Create Task -->
     <div class="modal fade" id="editStatus" tabindex="-1" aria-labelledby="editStatusLabel" aria-hidden="true">
         <div class="modal-dialog">

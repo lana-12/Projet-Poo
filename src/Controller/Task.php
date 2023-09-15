@@ -9,17 +9,30 @@ use Giaco\ProjetPoo\Entity\Status;
 use Giaco\ProjetPoo\Entity\Priority;
 use Giaco\ProjetPoo\Kernel\Validate;
 use Giaco\ProjetPoo\Utils\MyFunction;
+use Giaco\ProjetPoo\Configuration\Config;
 use Giaco\ProjetPoo\Kernel\AbstractController;
+use Giaco\ProjetPoo\Controller\Security\Authentificator;
 
 class Task extends AbstractController {
 
     public function index()
     {
+        // if (!Authentificator::is_connected()) {
+        //     header('Location: ' . Config::LOGIN);
+        // }
+        $this->authenticate();
+
+        
+
         if($_GET['id']){
             $task = Tasks::getByIdTask($_GET['id']);
-            // MyFunction::dump($task);
-        }
+            MyFunction::dump($task->getId_user());
 
+            if ($_SESSION['user']['id'] !== $task->getId_user()) {
+                header('Location: ' . Config::LOGIN);
+            }
+        }
+        
         $status = Status::getAll();
 
         $view = new Views();
@@ -41,6 +54,8 @@ class Task extends AbstractController {
 
     public function createTask()
     {
+        $this->authenticate();
+
         if ($_POST) {
             if (Validate::validate($_POST, ['taskTitle', 'taskContent', 'user', 'priority', 'status', 'project'])) {
 
@@ -70,6 +85,8 @@ class Task extends AbstractController {
 
     public function updateTask()
     {
+        $this->authenticate();
+
 
         $idT = $_GET['id'];
         // MyFunction::dump($idT);
@@ -173,6 +190,8 @@ class Task extends AbstractController {
 
     public function deleteTask()
     {
+        $this->authenticate();
+
         MyFunction::dump($_GET['id']);
         $result = false;
         $this->setFlashMessage('Aucune tâche ne correspond', 'error');
@@ -191,6 +210,8 @@ class Task extends AbstractController {
 
     public function updateStatus()
     {
+        $this->authenticate();
+
         // MyFunction::dump($_GET['id']);
         if($_POST){
             $idStatus = $_POST['status'];

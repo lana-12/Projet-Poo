@@ -25,3 +25,21 @@
     padding: 20px;
     width: 400px;
 }
+
+
+/* CSS existant... */
+
+/* Nouveau code pour le pied de page */
+.homePage {
+    min-height: 100vh;
+    /* Définit la hauteur minimale du contenu principal pour occuper au moins 100% de la hauteur de la fenêtre (viewport) */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Assurez-vous que le pied de page reste en bas */
+.footer {
+    margin-top: auto;
+}
+
+/* CSS existant... */

@@ -16,14 +16,10 @@ class Dispatcher {
 
         $this->controller = Config::CONTROLLER. 'home';
         $this->method = 'index';
-        session_start();
             
             if (isset($_GET['controller'])) {           
                 if(class_exists(Config::CONTROLLER.$_GET['controller'])) {
                     $this->controller = Config::CONTROLLER.$_GET['controller'];
-            
-                    //verifie si isset($_SESSION) tu es connecté ouvre la session
-                    //sinon logout
                 }
                 if(class_exists(Config::SECURITY.$_GET['controller'])) {
                     $this->controller = Config::SECURITY.$_GET['controller'];
@@ -38,8 +34,6 @@ class Dispatcher {
 
                 }
             }
-        
-
     }
 
     public function Dispatch() {
