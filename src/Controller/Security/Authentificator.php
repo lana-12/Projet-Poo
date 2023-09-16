@@ -30,8 +30,7 @@ class Authentificator extends AbstractController
                             'name' => $userArray->getName(),
                         ];
                         $id = $_SESSION['user']['id'];
-                        // $_SESSION['user_id'] = $userArray->getId();
-                        // $_SESSION['user_email'] = $userArray->getEmail();
+                        
 
                         // header('Location: /?controller=project&method=index');
                         header("Location: index.php?controller=user&method=index&id=$id");

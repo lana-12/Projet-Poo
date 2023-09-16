@@ -13,9 +13,6 @@ class Home extends AbstractController{
 
     public function index()
     {
-        if (!Authentificator::is_connected()) {
-            header('Location: ' . Config::LOGIN);
-        } 
         
         $view = new Views();
         $view->setHead('head.html');

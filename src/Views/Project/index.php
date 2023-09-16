@@ -39,6 +39,8 @@
         <div class="gallery">
             <?php foreach ($tasks as $task) :  ?>
 
+                
+
                 <div class="boxTask">
                     <h4>Titre : <?= $task->getTitle() ?></h4>
                     <p>Description : <?= $task->getContent() ?></p>

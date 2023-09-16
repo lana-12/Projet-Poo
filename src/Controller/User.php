@@ -52,6 +52,9 @@ class User extends AbstractController
     public function create()
     {
         if (isset($_POST['submit'])) {
+
+            // MyFunction::dump($_POST['name']);
+            // MyFunction::dump(ucfirst($_POST['name']));
             if (!$_SESSION['user']['email']) {
                 header("location: index.php?controller=user&method=index");
             } else {
@@ -59,21 +62,33 @@ class User extends AbstractController
             }
             if (Validate::validate($_POST, ['name', 'email', 'password'])) {
 
-                //Crypter le MDP
-                $pass = password_hash($_POST['password'], PASSWORD_BCRYPT);
+                // if(!Validate::validatePassword($_POST['password'])){
 
+                //     $this->setFlashMessage('Le mot de passe doit contenir 8 caractères minimum, 1 lettre en majuscule, 1 lettre en minuscule et 1 caractère spécial ', 'error');
+                //    die;
+                // }
 
-                $result = false;
-                $result = Users::create([
-                    "name" => $_POST['name'],
-                    "email" => $_POST['email'],
-                    "password" => $pass,
-                ]);
+                    $pass = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-                if ($result) {
-                    $this->setFlashMessage("L'Utilisateur a été bien créé", "success");
-                    header("Location: /");
-                }
+                    if (Validate::validateEmail($_POST['email'])) {
+
+                        $result = false;
+                        $result = Users::create([
+                            "name" => ucfirst($_POST['name']),
+                            "email" => $_POST['email'],
+                            "password" => $pass,
+                        ]);
+
+                        if ($result) {
+                            $this->setFlashMessage("L'Utilisateur a été bien créé", "success");
+                            header("Location: /");
+                        }
+                    } else {
+                        $this->setFlashMessage('Veuillez taper une adresse e-mail valide ', 'error');
+                    }
+                
+            } else {
+                $this->setFlashMessage('Tous les champs sont obligatoires', 'error');
             }
         }
 
@@ -83,27 +98,10 @@ class User extends AbstractController
         $view->setHtml('User/register.php');
         $view->setFooter('footer.html');
 
-
         $view->render([
             'flash' => $this->getFlashMessage(),
             'titlePage' => 'Inscription',
-
         ]);
     }
 
-    // public function modal()
-    // {
-
-    //     $view = new Views();
-    //     $view->setHead('head.html');
-    //     $view->setHeader('header.html');
-    //     $view->setHtml('Project/createProject.php');
-    //     $view->setFooter('footer.html');
-
-    //     $view->render([
-    //         'flash' => $this->getFlashMessage(),
-    //         'titlePage' => 'Créer un nouveau projet',
-
-    //     ]);
-    // }
 }
