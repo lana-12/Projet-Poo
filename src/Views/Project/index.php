@@ -9,7 +9,7 @@
         <?php if (!$project) : ?>
 
             <div class="alert alert-danger" role="alert">
-                <p>Aucun pojet en cours</p>
+                <p>Aucun projet en cours</p>
             </div>
         <?php endif ?>
 

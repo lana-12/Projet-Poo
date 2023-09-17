@@ -1,9 +1,14 @@
 # Tp PDO-POO
-
+Projet individuel avec le mini-framework
 
 ## Cloner le projet
 ```
 git clone https://github.com/lana-12/Projet-Poo.git
+```
+### Code de connexion
+```
+email = vivi@exemple.fr
+mdp   = vivi
 ```
 
 ## Dépendance

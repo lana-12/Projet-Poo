@@ -26,7 +26,7 @@ class Task extends AbstractController {
 
         if($_GET['id']){
             $task = Tasks::getByIdTask($_GET['id']);
-            MyFunction::dump($task->getId_user());
+            // MyFunction::dump($task->getId_user());
 
             if ($_SESSION['user']['id'] !== $task->getId_user()) {
                 header('Location: ' . Config::LOGIN);

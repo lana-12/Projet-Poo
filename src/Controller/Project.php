@@ -48,6 +48,8 @@ class Project extends AbstractController {
             $tasks = Tasks::getProjectTask($project->getId());
             // MyFunction::dump($tasks);
 
+            
+
             $view = new Views();
             $view->setHead('head.html');
             $view->setHeader('header.html');
