@@ -102,7 +102,12 @@ class Model  {
 
     }
 
-
+    /**
+     * Request for get the name of attibute  of the task
+     *
+     * @param integer $id
+     * @return void
+     */
     public static function getByIdTask(int $id)
     {
         $sql = "
@@ -114,7 +119,6 @@ class Model  {
             AND tasks.id_priority = priority.id
             AND tasks.id_user = users.id";
         $result =  self::Execute($sql)->fetchAll(PDO::FETCH_CLASS, self::getClassName());
-        //Comme fetchAll [0] on récupère le premier élément sinon c'est $result
         return $result[0];
 
     }

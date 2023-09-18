@@ -30,16 +30,8 @@
     <section>
         <h3>Tâches</h3>
 
-        <?php if (!$tasks) : ?>
-
-            <div class="alert alert-danger center" role="alert">
-                <p>Aucune Tâches pour ce projet</p>
-            </div>
-        <?php endif ?>
         <div class="gallery">
             <?php foreach ($tasks as $task) :  ?>
-
-                
 
                 <div class="boxTask">
                     <h4>Titre : <?= $task->getTitle() ?></h4>
@@ -59,7 +51,7 @@
 
     </section>
 
-    
+
     <!-- Modal Create Task -->
     <div class="modal fade" id="addTask" tabindex="-1" aria-labelledby="addTaskLabel" aria-hidden="true">
         <div class="modal-dialog">

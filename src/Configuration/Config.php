@@ -24,6 +24,6 @@ class Config {
 
     public const LOGIN = 'index.php?controller=Authentificator&method=login';
 
-    public const PROVIDER = 'Users';
+    
 
 }

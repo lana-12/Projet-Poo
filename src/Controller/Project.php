@@ -18,37 +18,19 @@ class Project extends AbstractController {
 
     public function index()
     {
-        // if (!Authentificator::is_connected()) {
-        //     header('Location: /?controller=home&method=index' );
-        //     // header('Location: ' . Config::LOGIN);
-        // }
+        
         $this->authenticate();
-
-
-        //Récupère le projet
         $id = $_GET['id'];
-        // MyFunction::dump($id);
-
         $project = Projects::getById($id);
-
-        // MyFunction::dump($_SESSION['user']['id']);
-        // MyFunction::dump($project->id_user);
-
 
         if ($_SESSION['user']['id'] !== $project->id_user) {
             header('Location: ' . Config::LOGIN);
         }
-        
-
             $status = Status::getAll();
             $priorities = Priority::getAll();
             $users = Users::getAll();
 
-
             $tasks = Tasks::getProjectTask($project->getId());
-            // MyFunction::dump($tasks);
-
-            
 
             $view = new Views();
             $view->setHead('head.html');
@@ -110,14 +92,10 @@ class Project extends AbstractController {
     {
         $this->authenticate();
 
-        // if (!$_SESSION) {
-        //     header('Location: ' . Config::LOGIN);
-        // }
         $idUser = $_SESSION['user']['id'];
         
         $id= $_GET['id'];
         $project = Projects::getById($id);
-        MyFunction::dump($project->id_user);
 
         if ($idUser !== $project->id_user) {
             header('Location: ' . Config::LOGIN);
@@ -158,7 +136,6 @@ class Project extends AbstractController {
     {
         $this->authenticate();
 
-        MyFunction::dump($_GET['id']);
         $result = false;
         $this->setFlashMessage('Aucun projet ne correspond', 'error');
         if (isset($_GET['id'])) {

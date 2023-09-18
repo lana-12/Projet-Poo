@@ -60,41 +60,19 @@ class Authentificator extends AbstractController
     {
         session_start();
         if (isset($_COOKIE['PHPSESSID']) && isset($_SESSION['user'])) {
-            // MyFunction::dump($_COOKIE['PHPSESSID']);
-            // MyFunction::dump($_SESSION['user']);
             return true;
         }
         setcookie('PHPSESSID', '', time() - 3600, '/');
         session_destroy();
-        // else {
-        //     session_destroy();
-        //     self::logout();
-        //     return false;
-        // }
         return false;
     }
 
     public function logout()
     {
-        // if (isset($_SESSION['user'])) {
-            //On supp la session['user']
-            unset($_SESSION['user']);
-            setcookie('PHPSESSID', '', time() - 3600, '/');
-
-            session_destroy();
-
-            // Redirection
-            // Soit vers home
-            header("Location: /");
-
-            // Soit user reste sur la même page
-            // header("Location: " . $_SERVER['HTTP_REFERER']);
-            exit;
-        // }
+        unset($_SESSION['user']);
+        setcookie('PHPSESSID', '', time() - 3600, '/');
+        session_destroy();
         header("Location: /");
-        // var_dump($_SESSION);
-        // echo htmlspecialchars(session_id());
-        // die;
-
+        exit;
     }
 }

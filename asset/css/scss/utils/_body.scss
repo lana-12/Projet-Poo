@@ -1,5 +1,3 @@
-
-/* Réinitialisation des marges et des rembourrages pour le body et l'HTML */
 html,
 body {
     margin: 0;
@@ -8,7 +6,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Style de base pour le contenu principal */
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -17,25 +14,14 @@ body {
 
 main {
     flex: 1;
-    /* Le contenu principal prendra toute la hauteur disponible */
 }
 
-/* Style du pied de page */
 footer {
     position: relative;
-    /* Position relative pour positionner le pied de page par rapport au contenu principal */
     bottom: 0;
-    /* Le pied de page reste en bas */
     width: 100%;
     background-color: #333;
-    /* Couleur de fond du pied de page */
     color: #fff;
-    /* Couleur du texte du pied de page */
     padding: 10px;
-    /* Espacement intérieur du pied de page */
 }
 
-// body {
-//     background-color: #bebec6;
-//     height: 100%;
-// }

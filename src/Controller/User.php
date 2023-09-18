@@ -17,11 +17,8 @@ class User extends AbstractController
 {
     public function index()
     {
-        // if (!Authentificator::is_connected()) {
-        //     header('Location:  ' . Config::LOGIN);
-        // }
+        
         $this->authenticate();
-
 
         $projects = Projects::getProjectUser($_SESSION['user']['id']);
         $tasks = Tasks::getTaskUser($_SESSION['user']['id']);
@@ -30,7 +27,6 @@ class User extends AbstractController
             if($_SESSION['user']['id'] !== $projects[0]->id_user){
                 header('Location:  ' . Config::LOGIN);
             } 
-
         }
         
         $view = new Views();
@@ -53,8 +49,6 @@ class User extends AbstractController
     {
         if (isset($_POST['submit'])) {
 
-            // MyFunction::dump($_POST['name']);
-            // MyFunction::dump(ucfirst($_POST['name']));
             if (!$_SESSION['user']['email']) {
                 header("location: index.php?controller=user&method=index");
             } else {

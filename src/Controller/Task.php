@@ -17,9 +17,6 @@ class Task extends AbstractController {
 
     public function index()
     {
-        // if (!Authentificator::is_connected()) {
-        //     header('Location: ' . Config::LOGIN);
-        // }
         $this->authenticate();
 
         
@@ -89,34 +86,23 @@ class Task extends AbstractController {
 
 
         $idT = $_GET['id'];
-        // MyFunction::dump($idT);
         $task = Tasks::getById($idT);
         $idP = $task->getId_Project();
-        // MyFunction::dump($idP);
 
         $tasks = Tasks::getByIdTask($idT);
-        //task en BDD
-        // MyFunction::dump($tasks->getId_priority());
 
-
-        //Get all User, Priority and Status for display in <select>
         $status = Status::getAll();
         $priorities = Priority::getAll();
         $users = Users::getAll();
 
 
         if ($_POST) {
-            // if (Validate::validate($_POST, ['taskTitle', 'taskContent', 'user', 'priority', 'status', 'project'])) {
                 
             // Récupère id par le name    
             $idPrior = Priority::getIdByName($_POST['priority']);
             $idStatus = $_POST['status'];
             $idUser = $_POST['user'];  
-            // MyFunction::dump($idStatus);
-            // MyFunction::dump($idUser);
 
-            // Je renvoi $_POST[] = id 
-            // soit le récupère le $_POST[]= name en id
             if (strlen($idStatus) === 1) {
                 $idStatus = $_POST['status'];
             } else {
@@ -125,14 +111,10 @@ class Task extends AbstractController {
             }
 
             if (strlen($idUser) === 1) {
-                // echo "_POST['status']";
                 $idUser = $_POST['user'];
-                // return $idUser;
             } else {
-                // echo "faire request";
                 $idU = Users::getIdByName($_POST['user']);
                 $idUser = $idU->getId();
-                // return $idUser;
             }
 
             // if (strlen($idPrior) === 1 ) {
@@ -146,10 +128,6 @@ class Task extends AbstractController {
             //     // return $idPrior;
             // }
 
-            // MyFunction::dump($idStatus);
-            // MyFunction::dump($idPrior);
-            // MyFunction::dump($idUser);
-// die;
                 $result = false;
                 $result = Tasks::update(
                     $idT, [
@@ -162,12 +140,10 @@ class Task extends AbstractController {
 
                 ]);
 
-                MyFunction::dump($result);
                 if ($result) {
                     $this->setFlashMessage("La Tâche a bien été Modifié", "success");
                     header("Location: index.php?controller=project&method=index&id=$idP");
                 }
-            // }
         }
 
         $view = new Views();
@@ -212,7 +188,6 @@ class Task extends AbstractController {
     {
         $this->authenticate();
 
-        // MyFunction::dump($_GET['id']);
         if($_POST){
             $idStatus = $_POST['status'];
 
@@ -223,8 +198,6 @@ class Task extends AbstractController {
                 $idStatus = $idS->getId();
             }
 
-            // MyFunction::dump($idStatus);
-
             $result = false;
             $result = Tasks::update(
                 $_GET['id'],
@@ -233,14 +206,10 @@ class Task extends AbstractController {
                 ]
             );
 
-            // MyFunction::dump($result);
             if ($result) {
                 $this->setFlashMessage("La Tâche a bien été Modifié", "success");
                 header("Location: " . $_SERVER['HTTP_REFERER']);            }
         }
-       
-
-
     }
-
+    
 }

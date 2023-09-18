@@ -34,10 +34,7 @@
                 <form action="index?controller=task&method=updateStatus&id=<?= $task->getId() ?>" method="POST">
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="taskStatus">Statut
-                                <?php
-                                var_dump($task->getId())
-                                ?></label>
+                            <label for="taskStatus">Statut</label>
                             <select class="form-control" name="status" id="taskStatus">
                                 <option><?= $task->name ?></option>
 
